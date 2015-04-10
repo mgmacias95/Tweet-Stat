@@ -11,6 +11,7 @@ api = tweepy.API(auth)
 
 usuario = input("Tell me an user\'s screen name: ")
 user = api.get_user(usuario)
+print("-----------------------------------------------------------")
 
 def rt_filtrer (list_timeline):
     # Returns a list which contains only tweets started by RT
@@ -61,7 +62,7 @@ def retweets_of():
 
     # And now, print the results
     for result in rts_stats:
-        print(result[0]+" is the "+str((result[1]/tam_list)*100)
+        print(result[0]+" has the "+str((result[1]/tam_list)*100)
             +"% of "+usuario+"\'s RTs")
 
 if __name__ == '__main__':
