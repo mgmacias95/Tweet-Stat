@@ -63,7 +63,7 @@ def retweets_of():
     # And now, print the results
     for result in rts_stats:
         print(result[0]+" has the "+str((result[1]/tam_list)*100)
-            +"% of "+usuario+"\'s RTs")
+            +"% of "+usuario+"\'s latest RTs")
 
 if __name__ == '__main__':
     retweets_of()
