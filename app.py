@@ -23,7 +23,7 @@ def rt_filtrer (list_timeline):
     return rts
 
 # Returns some stats of the most rted users by the specified user
-def retweets_of():
+def most_rtd_users():
     #Get user time line
     my_timeline = api.user_timeline(user.id, exclude_replies=True, counter=200)
     #Filtrer retweets made by this user
@@ -88,5 +88,29 @@ def most_faved_users():
         print(result[0]+" has the "+str((result[1]/20)*100)
             +"% of "+usuario+"\'s latest FAVs")
 
+# Returns a list of the users who the user follows and dont have a follow back
+def not_follow_back():
+    # Get users friends list (last 5000 friends)
+    my_friends = api.friends_ids(user.id)
+    # Get users followers list (last 5000 friends)
+    my_followers = api.followers_ids(user.id)
+
+    fol_sn = [] # a list to save followers screen name
+    fr_sn = [] # a list to save friends screen name
+
+    # Get users screen name
+    for x in range(0,user.followers_count,100):
+        fol = api.lookup_users(user_ids=my_followers[x:(x+100)])
+        for usr in fol:
+            fol_sn.append(usr.screen_name)
+
+    for x in range(0,user.friends_count,100):
+        fr = api.lookup_users(user_ids=my_friends[x:(x+100)])
+        for usr in fr:
+            fr_sn.append(usr.screen_name)
+
+    print(fr_sn[0:10])
+
+
 if __name__ == '__main__':
-    most_faved_users()
+    not_follow_back()
