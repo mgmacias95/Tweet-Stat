@@ -13,8 +13,8 @@ usuario = input("Tell me an user\'s screen name: ")
 user = api.get_user(usuario)
 print("-----------------------------------------------------------")
 
+# Returns a list which contains only tweets started by RT
 def rt_filtrer (list_timeline):
-    # Returns a list which contains only tweets started by RT
     rts = []
     for tweet in list_timeline:
         if tweet.text[:4] == "RT @":
@@ -22,6 +22,7 @@ def rt_filtrer (list_timeline):
 
     return rts
 
+# Returns some stats of the most rted users by the specified user
 def retweets_of():
     #Get user time line
     my_timeline = api.user_timeline(user.id, exclude_replies=True, counter=200)
@@ -61,5 +62,31 @@ def retweets_of():
         print(result[0]+" has the "+str((result[1]/tam_list)*100)
             +"% of "+usuario+"\'s latest RTs")
 
+# Returns some stats of the most faved users by the specified user
+def most_faved_users():
+    # Get the user fav list
+    my_favs = api.favorites(user.screen_name, count=20)
+
+    # Save screen names of the faved people
+    faved_people = []
+
+    for fav in my_favs:
+        faved_people.append(fav.user.screen_name)
+
+    # Save a 2d array the screen name and the times the user has faved this screen name
+    fav_stats = []
+    for fav in faved_people:
+        each_faved = [fav, faved_people.count(fav)]
+        if fav_stats.count(each_faved) == 0:
+            fav_stats.append(each_faved)
+
+    # Now we sort the list
+    fav_stats.sort(key=itemgetter(1), reverse=True)
+
+    # And print the results
+    for result in fav_stats:
+        print(result[0]+" has the "+str((result[1]/20)*100)
+            +"% of "+usuario+"\'s latest FAVs")
+
 if __name__ == '__main__':
-    retweets_of()
+    most_faved_users()
