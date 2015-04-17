@@ -22,10 +22,6 @@ def rt_filtrer (list_timeline):
 
     return rts
 
-def remove_all_values (value, list_a):
-    while value in list_a:
-        list_a.remove(value)
-
 def retweets_of():
     #Get user time line
     my_timeline = api.user_timeline(user.id, exclude_replies=True, counter=200)
@@ -54,11 +50,11 @@ def retweets_of():
     # rts_stats = [[user2, 4], [user3, 1]]
     for rt in rted_people:
         each_rted = [rt, rted_people.count(rt)]
-        rts_stats.append(each_rted)
-        remove_all_values(rt, rted_people)
+        if rts_stats.count(each_rted) == 0:
+            rts_stats.append(each_rted)
 
     # We sort the list by the number of RTs:
-    sorted(rts_stats, key=itemgetter(1))
+    rts_stats.sort(key=itemgetter(1), reverse=True)
 
     # And now, print the results
     for result in rts_stats:
