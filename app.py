@@ -109,7 +109,9 @@ def not_follow_back():
         for usr in fr:
             fr_sn.append(usr.screen_name)
 
-    print(fr_sn[0:10])
+    for friend in fr_sn:
+        if fol_sn.count(friend) == 0:
+            print(friend+" does not follow you back")
 
 
 if __name__ == '__main__':
