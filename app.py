@@ -3,7 +3,6 @@
 
 import tweepy
 import keys
-from operator import itemgetter
 from Twitter import Twitter
 
 auth = tweepy.OAuthHandler(keys.consumer_key, keys.consumer_secret)
