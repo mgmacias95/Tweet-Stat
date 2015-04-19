@@ -87,7 +87,7 @@ class Twitter:
                 +"% of "+self.user.screen_name+"\'s latest FAVs")
 
     # Returns a list of the users who the user follows and dont have a follow back
-    def __not_follow_back(self, fol_sn):
+    def not_follow_back(self, fol_sn):
         # Get users friends list (last 5000 friends)
         my_friends = self.api.friends_ids(self.user.id)
 
@@ -144,4 +144,4 @@ class Twitter:
             f.writelines("%s\n" % l for l in my_fol_sn)
             # compare with the friends list
             print("Checking friends list...")
-            self.__not_follow_back(my_fol_sn)
+            self.not_follow_back(my_fol_sn)
