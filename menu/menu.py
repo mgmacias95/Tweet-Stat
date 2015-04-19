@@ -115,19 +115,19 @@ if __name__ == '__main__':
     while menu.option != -1:
     	if menu.option == 0:
     		menu.print_user_menu()
-    		menu.suboption_menu = int(input("Choose a valid option: "))
+    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
     	elif menu.option == 1:
     		menu.print_rt_menu()
-    		menu.suboption_menu = int(input("Choose a valid option: "))
+    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
     	elif menu.option == 2:
     		menu.print_fav_menu()
-    		menu.suboption_menu = int(input("Choose a valid option: "))
+    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
     	elif menu.option == 3:
     		menu.print_follower_menu()
-    		menu.suboption_menu = int(input("Choose a valid option: "))
+    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
 
     if menu.option == -1:
