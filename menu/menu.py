@@ -105,6 +105,15 @@ class Menu:
 			while self.option < -1 or self.option > 3:
 				self.option = int(input("Try to choose a valid option: "))
 
+	def set_submenu_opt(self):
+		self.suboption_menu = int(input("Choose a valid option: "))
+
+		if self.suboption_menu < -1 or self.suboption_menu > 3:
+			print("Oups! Something is wrong with your choice")
+
+			while self.suboption_menu < -1 or self.suboption_menu > 3:
+				self.option = int(input("Try to choose a valid option: "))
+
 if __name__ == '__main__':
     menu = Menu()
     menu.welcome_message()
