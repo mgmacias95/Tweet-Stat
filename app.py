@@ -16,4 +16,4 @@ print("-----------------------------------------------------------")
 
 if __name__ == '__main__':
     tw = Twitter(user, api)
-    tw.most_faved_users()
+    tw.who_unfollowed()

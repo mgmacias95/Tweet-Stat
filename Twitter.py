@@ -18,7 +18,7 @@ class Twitter:
                 rts.append(tweet)
 
         return rts
-        
+
     # Returns some stats of the most rted users by the specified user
     def most_rtd_users(self):
         #Get user time line
@@ -87,26 +87,61 @@ class Twitter:
                 +"% of "+self.user.screen_name+"\'s latest FAVs")
 
     # Returns a list of the users who the user follows and dont have a follow back
-    def __not_follow_back(self):
+    def __not_follow_back(self, fol_sn):
         # Get users friends list (last 5000 friends)
         my_friends = self.api.friends_ids(self.user.id)
-        # Get users followers list (last 5000 friends)
-        my_followers = self.api.followers_ids(self.user.id)
 
-        fol_sn = [] # a list to save followers screen name
-        fr_sn = [] # a list to save friends screen name
-
-        # Get users screen name
-        for x in range(0,self.user.followers_count,100):
-            fol = self.api.lookup_users(user_ids=my_followers[x:(x+100)])
-            for usr in fol:
-                fol_sn.append(usr.screen_name)
-
-        for x in range(0,self.user.friends_count,100):
-            fr = self.api.lookup_users(user_ids=my_friends[x:(x+100)])
-            for usr in fr:
-                fr_sn.append(usr.screen_name)
+        fr_sn = self.__get_screen_names(my_friends) # a list to save friends screen name
 
         for friend in fr_sn:
             if fol_sn.count(friend) == 0:
-                print(friend+" does not follow you back")
+                print(friend+" does not follow "+self.user.screen_name+" back")
+
+    # Returns a list with screen_names from a id list given
+    def __get_screen_names(self, id_list):
+        l = []
+
+        for x in range(0,len(id_list),100):
+            li = self.api.lookup_users(user_ids=id_list[x:(x+100)])
+            for usr in li:
+                l.append(usr.screen_name)
+
+        return l
+
+    # Returns a list of the people who unfollowed the specified user
+    # it works this way: 
+    #   if there's a file called self.user.screen_name it compares
+    #   the content of this file with the actual list of followers
+    #   if there's no file, it downloads the actual list of followers, writes it
+    #   on a file called self.user.screen_name and compares the list with
+    #   the list of friends.
+    def who_unfollowed(self):
+        #download actual followers list:
+        my_followers = self.api.followers_ids(self.user.id)
+
+        # try to open the file:
+        try:
+            f = open(self.user.screen_name)
+            my_actuals = self.__get_screen_names(my_followers)
+            anyone_unfollowed = False
+            for line in f:
+                if my_actuals.count(line[:len(line)-1]) == 0:
+                    anyone_unfollowed = True
+                    print(line[:len(line)-1]+" recently unfollowed "+self.user.screen_name)
+
+            if not anyone_unfollowed: print("No one unfollowed "+self.user.screen_name)
+
+            f = open(self.user.screen_name, "w")
+            f.writelines("%s\n" % l for l in my_actuals)
+            print(self.user.screen_name+"\'s followers file updated")
+
+        except IOError as e:
+            print("followers file does not exists for "+self.user.screen_name)
+            # save the actual followers list
+            print("Creating file...")
+            my_fol_sn = self.__get_screen_names(my_followers)
+            f = open(self.user.screen_name, "w")
+            f.writelines("%s\n" % l for l in my_fol_sn)
+            # compare with the friends list
+            print("Checking friends list...")
+            self.__not_follow_back(my_fol_sn)
