@@ -129,11 +129,12 @@ class Twitter:
                     anyone_unfollowed = True
                     print(line[:len(line)-1]+" recently unfollowed "+self.user.screen_name)
 
-            if not anyone_unfollowed: print("No one unfollowed "+self.user.screen_name)
-
-            f = open(self.user.screen_name, "w")
-            f.writelines("%s\n" % l for l in my_actuals)
-            print(self.user.screen_name+"\'s followers file updated")
+            if not anyone_unfollowed: 
+                print("No one unfollowed "+self.user.screen_name)
+            else:
+                f = open(self.user.screen_name, "w")
+                f.writelines("%s\n" % l for l in my_actuals)
+                print(self.user.screen_name+"\'s followers file updated")
 
         except IOError as e:
             print("followers file does not exists for "+self.user.screen_name)
