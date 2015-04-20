@@ -146,3 +146,54 @@ class Twitter:
             # compare with the friends list
             print("Checking friends list...")
             self.not_follow_back(my_fol_sn)
+
+    # Returns the relationship between the specified user and another one
+    def relationship(self):
+        user2 = input("Tell me an screen name: ")
+        rel = self.api.show_friendship(source_screen_name=self.user.screen_name, target_screen_name=user2)
+        
+        print(self.user.screen_name+"\'s relationship with "+user2+":")
+        if rel[0].notifications_enabled:
+            print(self.user.screen_name+" has notifications enabled for "+user2)
+        else:
+            print(self.user.screen_name+" has not notifications enabled for "+user2)
+
+        if rel[0].blocked_by:
+            print(self.user.screen_name+" is blocked by "+user2)
+        else:
+            print(self.user.screen_name+" is not blocked by "+user2)
+
+        if rel[0].blocking:
+            print(user2+" is blocked by "+self.user.screen_name)
+        else:
+            print(user2+" is not blocked by "+self.user.screen_name)
+
+        if rel[0].following:
+            print(self.user.screen_name+" follows "+user2)
+        else:
+            print(self.user.screen_name+" does not follow "+user2)
+
+        if rel[0].followed_by:
+            print(self.user.screen_name+" is followed by "+user2)
+        else:
+            print(self.user.screen_name+" is not followed by "+user2)
+
+        if rel[0].marked_spam:
+            print(user2+" has been marked as spam by"+self.user.screen_name)
+        else:
+            print(user2+" has not been marked as spam by "+self.user.screen_name)
+
+        if rel[0].muting:
+            print(user2+" is muted by "+self.user.screen_name)
+        else:
+            print(user2+" is not muted by "+self.user.screen_name)
+
+        if rel[0].want_retweets:
+            print(self.user.screen_name+" wants to see "+user2+"\'s retweets")
+        else:
+            print(self.user.screen_name+" does not want to see "+user2+"\'s retweets")
+
+        if rel[0].can_dm:
+            print(self.user.screen_name+" can send direct messages to "+user2)
+        else:
+            print(self.user.screen_name+" cannot send direct messages to "+user2)

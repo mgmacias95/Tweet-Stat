@@ -15,4 +15,4 @@ print("-----------------------------------------------------------")
 
 if __name__ == '__main__':
     tw = Twitter(user, api)
-    tw.who_unfollowed()
+    tw.relationship()
