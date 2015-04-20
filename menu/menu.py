@@ -32,10 +32,13 @@ class Menu:
 
 	def print_user_menu(self):
 		print("""
-			User stat\'s zone menu
+      ---------------------------------------------------------
+			                   User stat\'s zone menu
+      ---------------------------------------------------------
 
-			0 --> ??
-			1 --> ?? 
+			          0 --> ??
+			          1 --> ?? 
+               -1 --> Back
 
 			More comming soon
 
@@ -47,10 +50,11 @@ class Menu:
                            RT\'s zone menu
         ---------------------------------------------------------
 
-               0 --> More rted users.
-               1 --> User that make more rt\'s. (Comming soon)
-               2 --> Top 10 rted\'s tweets. (Comming soon)
-               3 --> Average rt per day. (Comming soon)
+                0 --> More rted users.
+                1 --> User that make more rt\'s. (Comming soon)
+                2 --> Top 10 rted\'s tweets. (Comming soon)
+                3 --> Average rt per day. (Comming soon)
+               -1 --> Back
 
 			""")
 
@@ -59,10 +63,11 @@ class Menu:
         ---------------------------------------------------------
                            Fav\'s zone menu
         ---------------------------------------------------------
-               0 --> More fav users.
-               1 --> User that make favorite you more. (Comming soon)
-               2 --> Top 10 fav\'s tweets. (Comming soon)
-               3 --> Average fav per day. (Comming soon)
+                0 --> More fav users.
+                1 --> User that make favorite you more. (Comming soon)
+                2 --> Top 10 fav\'s tweets. (Comming soon)
+                3 --> Average fav per day. (Comming soon)
+               -1 --> Back
 
 			""")		
 
@@ -72,9 +77,9 @@ class Menu:
         ---------------------------------------------------------
                            Follower\'s zone menu
         ---------------------------------------------------------
-               0 --> Not follow back.
-               1 --> New follower\'s. (Comming soon)
-               2 --> Last unfollows. (Comming soon)
+                0 --> Not follow back.
+                1 --> New follower\'s. (Comming soon)
+                2 --> Last unfollows. (Comming soon)
                -1 --> Back
 			""")
 
@@ -109,7 +114,7 @@ class Menu:
 		self.suboption_menu = int(input("Choose a valid option: "))
 
 		if self.suboption_menu < -1 or self.suboption_menu > 3:
-			print("Oups! Something is wrong with your choice")
+			print("Oups! Something is wrong with your choice.")
 
 			while self.suboption_menu < -1 or self.suboption_menu > 3:
 				self.option = int(input("Try to choose a valid option: "))
@@ -124,7 +129,21 @@ if __name__ == '__main__':
     while menu.option != -1:
     	if menu.option == 0:
     		menu.print_user_menu()
-    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
+        menu.set_submenu_opt()
+
+        while menu.suboption_menu != -1:
+          if menu.suboption_menu == 0:
+            print("Comming soon...")
+            menu.print_user_menu()
+            menu.set_submenu_opt()
+          else if menu.suboption_menu == 1:
+            print("Comming soon...")
+            menu.print_user_menu()
+            menu.set_submenu_opt()
+
+        menu.print_main_menu()
+        menu.set_main_menu_opt()
+
 
     	elif menu.option == 1:
     		menu.print_rt_menu()
