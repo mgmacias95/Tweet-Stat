@@ -155,17 +155,17 @@ class Twitter:
         print(self.user.screen_name+"\'s relationship with "+user2+":")
         if rel[0].notifications_enabled:
             print(self.user.screen_name+" has notifications enabled for "+user2)
-        else:
+        elif rel[0].notifications_enabled == False:
             print(self.user.screen_name+" has not notifications enabled for "+user2)
 
         if rel[0].blocked_by:
             print(self.user.screen_name+" is blocked by "+user2)
-        else:
+        elif rel[0].blocked_by == False:
             print(self.user.screen_name+" is not blocked by "+user2)
 
         if rel[0].blocking:
             print(user2+" is blocked by "+self.user.screen_name)
-        else:
+        elif rel[0].blocking == False:
             print(user2+" is not blocked by "+self.user.screen_name)
 
         if rel[0].following:
@@ -180,17 +180,17 @@ class Twitter:
 
         if rel[0].marked_spam:
             print(user2+" has been marked as spam by"+self.user.screen_name)
-        else:
+        elif rel[0].marked_spam == False:
             print(user2+" has not been marked as spam by "+self.user.screen_name)
 
         if rel[0].muting:
             print(user2+" is muted by "+self.user.screen_name)
-        else:
+        elif rel[0].muting == False:
             print(user2+" is not muted by "+self.user.screen_name)
 
         if rel[0].want_retweets:
             print(self.user.screen_name+" wants to see "+user2+"\'s retweets")
-        else:
+        elif rel[0].want_retweets == False:
             print(self.user.screen_name+" does not want to see "+user2+"\'s retweets")
 
         if rel[0].can_dm:
