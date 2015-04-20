@@ -72,7 +72,6 @@ class Menu:
 			""")		
 
 	def print_follower_menu(self):
-
 		print("""
         ---------------------------------------------------------
                            Follower\'s zone menu
@@ -84,7 +83,6 @@ class Menu:
 			""")
 
 	def print_exit_log(self):
-
 		print("""			
 
 
@@ -127,16 +125,16 @@ if __name__ == '__main__':
     menu.set_main_menu_opt()
 
     while menu.option != -1:
-    	if menu.option == 0:
-    		menu.print_user_menu()
-        menu.set_submenu_opt()
+        if menu.option == 0:
+            menu.print_user_menu()
+            menu.set_submenu_opt()
 
         while menu.suboption_menu != -1:
           if menu.suboption_menu == 0:
             print("Comming soon...")
             menu.print_user_menu()
             menu.set_submenu_opt()
-          else if menu.suboption_menu == 1:
+          elif menu.suboption_menu == 1:
             print("Comming soon...")
             menu.print_user_menu()
             menu.set_submenu_opt()
@@ -145,17 +143,17 @@ if __name__ == '__main__':
         menu.set_main_menu_opt()
 
 
-    	elif menu.option == 1:
-    		menu.print_rt_menu()
-    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
+        if menu.option == 1:
+            menu.print_rt_menu()
+            menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
-    	elif menu.option == 2:
-    		menu.print_fav_menu()
-    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
+        elif menu.option == 2:
+            menu.print_fav_menu()
+            menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
-    	elif menu.option == 3:
-    		menu.print_follower_menu()
-    		menu.suboption_menu = int(input("Choose a valid submenu option: "))
+        elif menu.option == 3:
+            menu.print_follower_menu()
+            menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
 
     if menu.option == -1:
