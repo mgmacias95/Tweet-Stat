@@ -27,17 +27,17 @@ class Menu:
 
         0 --> User stat\'s                 1 --> RT\'s zone
         2 --> Fav\'s zone                  3 --> Follower\'s zone
-                            -1 --> Exit
+                -1 --> Exit       4 --> Extra
 		""")
 
 	def print_user_menu(self):
 		print("""
       ---------------------------------------------------------
-			                   User stat\'s zone menu
+                       User stat\'s zone menu
       ---------------------------------------------------------
 
-			          0 --> ??
-			          1 --> ?? 
+			  0 --> ??
+			  1 --> ?? 
                -1 --> Back
 
 			More comming soon
@@ -99,22 +99,40 @@ class Menu:
 
 			""")
 
+	def extra(self):
+		print("""
+			---------------------------------------------------------
+                           TWEETSTAT
+      ---------------------------------------------------------
+
+        TweetStat is an oupen source code with GNU-3 License
+
+        The authors of this dangerous work are:
+
+           Marta Gómez     --> https://github.com/mgmacias95
+           Braulio Vargas  --> https://github.com/BraulioV
+
+
+        Press -1 to go back
+        
+			""")		
+
 	def set_main_menu_opt(self):
 		self.option = int(input("Choose a valid option: "))
 
-		if self.option < -1 or self.option > 3:
+		if self.option < -1 or self.option > 4:
 			print("Oups! Something is wrong with your choice")
 
-			while self.option < -1 or self.option > 3:
+			while self.option < -1 or self.option > 4:
 				self.option = int(input("Try to choose a valid option: "))
 
 	def set_submenu_opt(self):
 		self.suboption_menu = int(input("Choose a valid option: "))
 
-		if self.suboption_menu < -1 or self.suboption_menu > 3:
+		if self.suboption_menu < -1 or self.suboption_menu > 4:
 			print("Oups! Something is wrong with your choice.")
 
-			while self.suboption_menu < -1 or self.suboption_menu > 3:
+			while self.suboption_menu < -1 or self.suboption_menu > 4:
 				self.option = int(input("Try to choose a valid option: "))
 
 if __name__ == '__main__':
@@ -129,32 +147,34 @@ if __name__ == '__main__':
             menu.print_user_menu()
             menu.set_submenu_opt()
 
-        while menu.suboption_menu != -1:
-          if menu.suboption_menu == 0:
-            print("Comming soon...")
-            menu.print_user_menu()
-            menu.set_submenu_opt()
-          elif menu.suboption_menu == 1:
-            print("Comming soon...")
-            menu.print_user_menu()
-            menu.set_submenu_opt()
+            while menu.suboption_menu != -1:
+            	if menu.suboption_menu == 0:
+            		print("Comming soon...")
+            		menu.print_user_menu()
+            		menu.set_submenu_opt()
+            	elif menu.suboption_menu == 1:
+            		print("Comming soon...")
+            		menu.print_user_menu()
+            		menu.set_submenu_opt()
 
-        menu.print_main_menu()
-        menu.set_main_menu_opt()
+            menu.print_main_menu()
+            menu.set_main_menu_opt()
 
-
-        if menu.option == 1:
+        elif menu.option == 1:
             menu.print_rt_menu()
             menu.suboption_menu = int(input("Choose a valid submenu option: "))
 
         elif menu.option == 2:
             menu.print_fav_menu()
             menu.suboption_menu = int(input("Choose a valid submenu option: "))
-
         elif menu.option == 3:
             menu.print_follower_menu()
             menu.suboption_menu = int(input("Choose a valid submenu option: "))
-
+        elif menu.option == 4:
+            menu.extra()
+            menu.set_submenu_opt()
+            menu.print_main_menu()
+            menu.set_main_menu_opt()
 
     if menu.option == -1:
-    	menu.print_exit_log()
+        menu.print_exit_log()
