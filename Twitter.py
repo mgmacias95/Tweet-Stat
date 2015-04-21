@@ -86,8 +86,8 @@ class Twitter:
             print(result[0]+" has the "+str((result[1]/20)*100)
                 +"% of "+self.user.screen_name+"\'s latest FAVs")
 
-    # Returns a list of the most mencioned users by the specified user
-    def most_mentioned_users(self):
+    # Returns a list of the users who more mention to the specified user
+    def mentioners(self):
         # Get the lastest mentions to the user
         mentions = self.api.mentions_timeline(self.user.id, count=75)
 
