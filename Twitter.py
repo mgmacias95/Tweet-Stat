@@ -86,6 +86,32 @@ class Twitter:
             print(result[0]+" has the "+str((result[1]/20)*100)
                 +"% of "+self.user.screen_name+"\'s latest FAVs")
 
+    # Returns a list of the users who more mention to the specified user
+    def mentioners(self):
+        # Get the lastest mentions to the user
+        mentions = self.api.mentions_timeline(self.user.id, count=75)
+
+        # Save screen names of the people who mentioned
+        people_who_mentioned = []
+
+        for plp in mentions:
+            people_who_mentioned.append(plp.user.screen_name)
+
+        # Save a 2d array the screen name and the times the specified user has been mentioned by the user
+        mentioned_stats = []
+        for mention in people_who_mentioned:
+            each_m = [mention, people_who_mentioned.count(mention)]
+            if mentioned_stats.count(each_m) == 0:
+                mentioned_stats.append(each_m)
+
+        # Now we sort the list
+        mentioned_stats.sort(key=itemgetter(1), reverse=True)
+
+        # And print the results
+        for result in mentioned_stats:
+            print(result[0]+" mentions "+self.user.screen_name+" the "+str((result[1]/75)*100)+"% of the times")
+
+
     # Returns a list of the users who the user follows and dont have a follow back
     def not_follow_back(self, fol_sn):
         # Get users friends list (last 5000 friends)
