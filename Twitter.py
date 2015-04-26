@@ -170,7 +170,7 @@ class Twitter:
                 print(friend+" does not follow "+self.user.screen_name+" back")
 
     # Returns a list with screen_names from a id list given
-    def __get_screen_names(self, id_list):
+    def get_screen_names(self, id_list):
         l = []
 
         for x in range(0,len(id_list),100):
@@ -212,7 +212,7 @@ class Twitter:
             print("followers file does not exists for "+self.user.screen_name)
             # save the actual followers list
             print("Creating file...")
-            my_fol_sn = self.__get_screen_names(my_followers)
+            my_fol_sn = self.get_screen_names(my_followers)
             f = open(self.user.screen_name, "w")
             f.writelines("%s\n" % l for l in my_fol_sn)
             # compare with the friends list

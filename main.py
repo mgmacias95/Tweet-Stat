@@ -47,6 +47,11 @@ if __name__ == '__main__':
                     menu.continue_()
                     menu.print_user_menu()
                     menu.set_submenu_opt(num_opt-1)
+                elif menu.suboption_menu == 2:
+                    tw.relationship()
+                    menu.continue_()
+                    menu.print_user_menu()
+                    menu.set_submenu_opt(num_opt-1)
 
             menu.print_main_menu()
             menu.set_main_menu_opt()
@@ -57,25 +62,26 @@ if __name__ == '__main__':
             menu.set_submenu_opt(num_opt-1)
             while menu.suboption_menu != -1:
                 if menu.suboption_menu == 0:
-                    print("Calling more rted users...")
+                    print("Users more retweeted by "+user.screen_name)
+                    tw.most_rtd_users()
                     menu.continue_()
                     menu.print_rt_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 1:
-                    print("Calling user that make mor rt\'s")
+                    print("Calling user that make mor rt\'s (Comming soon...)")
                     menu.continue_()
                     menu.print_rt_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 2:
-                    print("Top 10 rted\'s tweets")
+                    print("Top 10 rted\'s tweets (Comming soon...)")
                     menu.continue_()
                     menu.print_rt_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 3:
-                    print("Average rt per day")
+                    print("Average rt per day (Comming soon...)")
                     menu.continue_()
                     menu.print_rt_menu()
                     menu.set_submenu_opt(num_opt-1)
@@ -90,25 +96,26 @@ if __name__ == '__main__':
             
             while menu.suboption_menu != -1:
                 if menu.suboption_menu == 0:
-                    print("More fav users...")
+                    print("Users more favorited by "+user.screen_name)
+                    tw.most_faved_users()
                     menu.continue_()
                     menu.print_fav_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 1:
-                    print("User that make favorite you more")
+                    print("User that make favorite you more (Comming soon...)")
                     menu.continue_()
                     menu.print_fav_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 2:
-                    print("Top 10 fav\'s tweets")
+                    print("Top 10 fav\'s tweets (Comming soon...)")
                     menu.continue_()
                     menu.print_fav_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 3:
-                    print("Average fav per day")
+                    print("Average fav per day (Comming soon...)")
                     menu.continue_()
                     menu.print_fav_menu()
                     menu.set_submenu_opt(num_opt-1)
@@ -123,19 +130,23 @@ if __name__ == '__main__':
             
             while menu.suboption_menu != -1:
                 if menu.suboption_menu == 0:
-                    print("Not follow back")
+                    print("Users who does not follow back "+user.screen_name)
+                    my_followers = self.api.followers_ids(user.id)
+                    my_fol_sn = tw.get_screen_names(my_followers)
+                    tw.not_follow_back(my_fol_sn)
                     menu.continue_()
                     menu.print_follower_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 1:
-                    print("New follower\'s")
+                    print("New follower\'s (Comming soon...)")
                     menu.continue_()
                     menu.print_follower_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 2:
-                    print("Last unfollows")
+                    print("Last unfollows of"+user.screen_name)
+                    tw.who_unfollowed()
                     menu.continue_()
                     menu.print_follower_menu()
                     menu.set_submenu_opt(num_opt-1)
