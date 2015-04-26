@@ -10,6 +10,9 @@ class Menu:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def welcome_message(self):
+
+        self.clean_screen()
+
         print("""
 
 
@@ -24,6 +27,8 @@ class Menu:
         """)
 
     def print_main_menu(self):
+        self.clean_screen()
+
         print("""
 
         ---------------------------------------------------------
@@ -36,6 +41,8 @@ class Menu:
         """)
 
     def print_user_menu(self):
+
+        self.clean_screen()
         print("""
       ---------------------------------------------------------
                        User stat\'s zone menu
@@ -50,6 +57,8 @@ class Menu:
             """)
 
     def print_rt_menu(self):
+        self.clean_screen()
+
         print("""
         ---------------------------------------------------------
                            RT\'s zone menu
@@ -64,6 +73,8 @@ class Menu:
             """)
 
     def print_fav_menu(self):
+        self.clean_screen()
+
         print("""
         ---------------------------------------------------------
                            Fav\'s zone menu
@@ -77,6 +88,8 @@ class Menu:
             """)
 
     def log_menu(self):
+        self.clean_screen()
+
         print("""
         ---------------------------------------------------------
                               Log Screen
@@ -103,6 +116,8 @@ class Menu:
 
 
     def print_follower_menu(self):
+        self.clean_screen()
+
         print("""
         ---------------------------------------------------------
                            Follower\'s zone menu
@@ -114,6 +129,8 @@ class Menu:
             """)
 
     def print_exit_log(self):
+        self.clean_screen()
+
         print("""           
 
 
@@ -121,16 +138,18 @@ class Menu:
                             Exiting of TweetStat           
         ---------------------------------------------------------
                
-                      Thank you for using TweetStat
+                      Thank you for using TweetStat.
 
-               Remember what uncle Ben said once before die:
+              Remember what uncle Ben said once before he died:
 
-                With great power comes great responsibility
+                \"With great power comes great responsibility\"
 
 
             """)
 
     def extra(self):
+        self.clean_screen()
+
         print("""
         ---------------------------------------------------------
                               TWEETSTAT
