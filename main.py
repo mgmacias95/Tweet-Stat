@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import tweepy
+import keys
 import menu
 from menu import Menu 
 
 if __name__ == '__main__':
+    auth = tweepy.OAuthHandler(keys.consumer_key, keys.consumer_secret)
+    auth.set_access_token(keys.access_token, keys.access_token_secret)
+    api = tweepy.API(auth)
+
     menu = Menu()
     menu.welcome_message()
     menu.print_main_menu()
