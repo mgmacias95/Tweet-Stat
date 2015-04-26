@@ -5,6 +5,7 @@ import tweepy
 import keys
 import menu
 from menu import Menu 
+from Twitter import Twitter
 
 if __name__ == '__main__':
     auth = tweepy.OAuthHandler(keys.consumer_key, keys.consumer_secret)
@@ -20,6 +21,7 @@ if __name__ == '__main__':
         usuario = menu.log_menu()
 
     user = api.get_user(usuario)
+    tw = Twitter(user, api)
 
     menu.welcome_message()
     menu.print_main_menu()
@@ -34,11 +36,13 @@ if __name__ == '__main__':
 
             while menu.suboption_menu != -1:
                 if menu.suboption_menu == 0:
-                    print("Comming soon...")
+                    print("More mentioned users by "+user.screen_name)
+                    tw.more_mentioned()
                     menu.print_user_menu()
                     menu.set_submenu_opt(num_opt-1)
                 elif menu.suboption_menu == 1:
-                    print("Comming soon...")
+                    print("Users who more mention "+user.screen_name)
+                    tw.mentioners()
                     menu.print_user_menu()
                     menu.set_submenu_opt(num_opt-1)
 
