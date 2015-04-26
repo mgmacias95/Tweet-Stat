@@ -12,6 +12,15 @@ if __name__ == '__main__':
     api = tweepy.API(auth)
 
     menu = Menu()
+
+    usuario = menu.log_menu()
+
+    while not usuario:
+        print("Check that you put a screen name")
+        usuario = menu.log_menu()
+
+    user = api.get_user(usuario)
+
     menu.welcome_message()
     menu.print_main_menu()
 

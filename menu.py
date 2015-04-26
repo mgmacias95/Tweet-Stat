@@ -69,7 +69,28 @@ class Menu:
                 3 --> Average fav per day. (Comming soon)
                -1 --> Back
 
-            """)        
+            """)
+
+    def log_menu(self):
+        print("""
+        ---------------------------------------------------------
+                              Log Screen
+        ---------------------------------------------------------
+
+            To get acces to TWEETSTAT, please introduce an
+
+                     user screen name without @
+
+            """)
+        
+        usuario = input('Tell me an user\'s screen name')
+
+        if usuario[0] == '@':
+            usuario = usuario[1:]
+
+        return usuario
+            
+
 
     def print_follower_menu(self):
         print("""
