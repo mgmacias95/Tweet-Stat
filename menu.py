@@ -128,6 +128,9 @@ class Menu:
                -1 --> Back
             """)
 
+    def continue_(self):
+        input("Press any key to continue...")
+
     def print_exit_log(self):
         self.clean_screen()
 
