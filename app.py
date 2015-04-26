@@ -15,4 +15,4 @@ print("-----------------------------------------------------------")
 
 if __name__ == '__main__':
     tw = Twitter(user, api)
-    tw.most_mentioned_users()
+    tw.more_mentioned()

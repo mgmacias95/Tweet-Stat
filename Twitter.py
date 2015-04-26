@@ -111,6 +111,52 @@ class Twitter:
         for result in mentioned_stats:
             print(result[0]+" mentions "+self.user.screen_name+" the "+str((result[1]/75)*100)+"% of the times")
 
+    def __mentions_filtrer(self, list_timeline):
+        my_mentioned_people = []
+        for tweet in list_timeline:
+            if len(tweet.entities['user_mentions']) > 0:
+                for users in tweet.entities['user_mentions']:
+                    my_mentioned_people.append(users['screen_name'])
+
+        return my_mentioned_people
+
+    # Returns a list with the users the specified user mentions more
+    def more_mentioned (self):
+        # Get the user time lime
+        my_timeline = self.api.user_timeline(self.user.id, counter=200, include_rts=False)
+        my_last_tweet = my_timeline[-1].id
+
+        my_mentioned_people = []
+
+        # Repeat the process until getting 1000 tweets
+        for i in range(200,1000,200):
+            # get the people who the specified user mentions
+            aux = self.__mentions_filtrer(my_timeline)
+            for sn in aux:
+                my_mentioned_people.append(sn)
+
+            my_timeline = []
+            my_timeline = self.api.user_timeline(self.user.id, include_rts=False, counter=200, max_id=my_last_tweet)
+            my_last_tweet = my_timeline[-1].id
+            aux = []
+
+        tam_list = len(my_mentioned_people)
+        mentions_stats = []
+
+        # save in a 2D array the screen name and the times the user mentioned this screen name.
+        for mention in my_mentioned_people:
+            each_mention = [mention, my_mentioned_people.count(mention)]
+            if mentions_stats.count(each_mention) == 0:
+                mentions_stats.append(each_mention)
+
+        # sort the list by the number of mentions
+        mentions_stats.sort(key=itemgetter(1), reverse=True)
+
+        # print the results
+        for result in mentions_stats:
+            print(self.user.screen_name+" mentions "+result[0]+" the "
+                +str((result[1]/tam_list)*100)+"% of the times")
+
 
     # Returns a list of the users who the user follows and dont have a follow back
     def not_follow_back(self, fol_sn):
@@ -157,10 +203,10 @@ class Twitter:
 
             if not anyone_unfollowed: 
                 print("No one unfollowed "+self.user.screen_name)
-            else:
-                f = open(self.user.screen_name, "w")
-                f.writelines("%s\n" % l for l in my_actuals)
-                print(self.user.screen_name+"\'s followers file updated")
+
+            f = open(self.user.screen_name, "w")
+            f.writelines("%s\n" % l for l in my_actuals)
+            print(self.user.screen_name+"\'s followers file updated")
 
         except IOError as e:
             print("followers file does not exists for "+self.user.screen_name)
