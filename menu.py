@@ -101,7 +101,7 @@ class Menu:
 
             """)
         
-        usuario = input('Tell me an user\'s screen name')
+        usuario = input('Tell me an user\'s screen name: ')
 
         if usuario[0] == '@':
             usuario = usuario[1:]
