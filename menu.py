@@ -133,14 +133,13 @@ class Menu:
         print("""
 
 
-            ---------------------------------------------------------
-            """)
-        wait = input("                    Press any key to continue...")
-        print("""
-            ---------------------------------------------------------
 
 
+
+Press any key to continue...
+            
             """)
+        wait = input(" ")
 
     def print_exit_log(self):
         self.clean_screen()
