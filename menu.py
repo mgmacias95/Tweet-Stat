@@ -1,8 +1,13 @@
+import os
+
 class Menu:
     """docstring for Menu"""
     def __init__(self):
         self.option = 0
         self.suboption_menu = 0
+
+    def clean_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     def welcome_message(self):
         print("""
@@ -36,8 +41,8 @@ class Menu:
                        User stat\'s zone menu
       ---------------------------------------------------------
 
-              0 --> ??
-              1 --> ?? 
+              0 --> More mentioned users.
+              1 --> Users who mentioned you more.
                -1 --> Back
 
             More comming soon
@@ -87,6 +92,11 @@ class Menu:
 
         if usuario[0] == '@':
             usuario = usuario[1:]
+
+
+        print("""
+
+            """)
 
         return usuario
             
