@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     while menu.option != -1:
         if menu.option == 0:
-            num_opt = 2
+            num_opt = 3
             menu.print_user_menu()
             menu.set_submenu_opt(num_opt-1)
 

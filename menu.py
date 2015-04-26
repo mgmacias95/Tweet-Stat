@@ -50,7 +50,8 @@ class Menu:
 
               0 --> More mentioned users.
               1 --> Users who mentioned you more.
-               -1 --> Back
+              2 --> Relations between you and other user.
+             -1 --> Back
 
             More comming soon
 
