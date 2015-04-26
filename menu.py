@@ -130,8 +130,17 @@ class Menu:
             """)
 
     def continue_(self):
-        print("   ")
-        wait = input("Press any key to continue...")
+        print("""
+
+
+            ---------------------------------------------------------
+            """)
+        wait = input("                    Press any key to continue...")
+        print("""
+            ---------------------------------------------------------
+
+
+            """)
 
     def print_exit_log(self):
         self.clean_screen()
