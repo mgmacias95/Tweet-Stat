@@ -163,7 +163,7 @@ class Twitter:
         # Get users friends list (last 5000 friends)
         my_friends = self.api.friends_ids(self.user.id)
 
-        fr_sn = self.__get_screen_names(my_friends) # a list to save friends screen name
+        fr_sn = self.get_screen_names(my_friends) # a list to save friends screen name
 
         for friend in fr_sn:
             if fol_sn.count(friend) == 0:
@@ -194,7 +194,7 @@ class Twitter:
         # try to open the file:
         try:
             f = open(self.user.screen_name)
-            my_actuals = self.__get_screen_names(my_followers)
+            my_actuals = self.get_screen_names(my_followers)
             anyone_unfollowed = False
             for line in f:
                 if my_actuals.count(line[:len(line)-1]) == 0:
