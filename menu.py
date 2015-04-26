@@ -22,7 +22,7 @@ class Menu:
                
                       Get Twitter user\'s profile info
 
-           Remember: with great power comes great responsibility
+           Remember: \"with great power comes great responsibility\"
 
         """)
 
@@ -96,7 +96,7 @@ class Menu:
                               Log Screen
         ---------------------------------------------------------
 
-            To get acces to TWEETSTAT, please introduce an
+            To get access to TWEETSTAT, please introduce an
 
                      user screen name without @
 
@@ -130,14 +130,14 @@ class Menu:
             """)
 
     def continue_(self):
-        print("""
+
+        wait = input("""
 
 
 
 
 
 Press any key to continue...""")
-        wait = input(" ")
 
     def print_exit_log(self):
         self.clean_screen()
@@ -151,9 +151,9 @@ Press any key to continue...""")
                
                       Thank you for using TweetStat.
 
-              Remember what uncle Ben said once before he died:
+             Remember what uncle Ben said once before he died:
 
-                \"With great power comes great responsibility\"
+              \"With great power comes great responsibility\"
 
 
             """)
@@ -166,15 +166,19 @@ Press any key to continue...""")
                               TWEETSTAT
         ---------------------------------------------------------
 
-        TweetStat is an oupen source code with GNU-3 License
+           TweetStat is an oupen source code with GNU-3 License
 
-        The authors of this dangerous work are:
+           The authors of this dangerous work are:
 
-           Marta Gómez     --> https://github.com/mgmacias95
-           Braulio Vargas  --> https://github.com/BraulioV
+             Marta Gómez     --> https://github.com/mgmacias95
+             Braulio Vargas  --> https://github.com/BraulioV
 
 
-        Press -1 to go back
+                        
+
+
+
+                        Press -1 to go back
         
             """)        
 
@@ -185,7 +189,7 @@ Press any key to continue...""")
         self.option = int(input("Choose a valid option: "))
 
         if self.option < -1 or self.option > num_opts:
-            print("Oups! Something is wrong with your choice")
+            print("Oups! Something is wrong with your choice D:")
 
             while self.option < -1 or self.option > num_opts:
                 self.option = int(input("Try to choose a valid option: "))
