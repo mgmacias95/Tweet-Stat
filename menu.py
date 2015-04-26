@@ -125,7 +125,7 @@ class Menu:
         ---------------------------------------------------------
                 0 --> Not follow back.
                 1 --> New follower\'s. (Comming soon)
-                2 --> Last unfollows. (Comming soon)
+                2 --> Last unfollows.
                -1 --> Back
             """)
 
