@@ -145,7 +145,7 @@ if __name__ == '__main__':
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 2:
-                    print("Last unfollows of"+user.screen_name)
+                    print("Last unfollows of "+user.screen_name)
                     tw.who_unfollowed()
                     menu.continue_()
                     menu.print_follower_menu()
