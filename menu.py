@@ -136,9 +136,7 @@ class Menu:
 
 
 
-Press any key to continue...
-            
-            """)
+Press any key to continue...""")
         wait = input(" ")
 
     def print_exit_log(self):
