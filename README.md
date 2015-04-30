@@ -1,5 +1,7 @@
 # Tweet-Stat
-A little console program which prints stats about any twitter user.
+A little console program which prints stats about any twitter user. 
+
+Based on [__Tweepy__](https://github.com/tweepy/tweepy "__Tweepy__")
 
 ## How to use
 1. Create a new app on <https://apps.twitter.com/>
