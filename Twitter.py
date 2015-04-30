@@ -89,13 +89,15 @@ class Twitter:
     # Returns a list of the users who more mention to the specified user
     def mentioners(self):
         # Get the lastest mentions to the user
-        mentions = self.api.mentions_timeline(self.user.id, count=75)
+        mentions = self.api.search(q=self.user.screen_name, count=150)
 
         # Save screen names of the people who mentioned
         people_who_mentioned = []
 
-        for plp in mentions:
-            people_who_mentioned.append(plp.user.screen_name)
+        for tw in mentions:
+            for people in tw.entities['user_mentions']:
+                if people['screen_name'] == self.user.screen_name:
+                    people_who_mentioned.append(tw.user.screen_name) 
 
         # Save a 2d array the screen name and the times the specified user has been mentioned by the user
         mentioned_stats = []
