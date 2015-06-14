@@ -15,7 +15,7 @@ class Menu:
         print(bcolors.bblue)
 
     def normal_world(self):
-        print(bcolors.ENDC)
+        print(""+bcolors.ENDC+"\n")
 
     def welcome_message(self):
 
