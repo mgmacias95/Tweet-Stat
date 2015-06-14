@@ -82,7 +82,7 @@ class Menu:
         ---------------------------------------------------------
                 0 --> More fav users.
                 1 --> User that make favorite you more. (Comming soon)
-                2 --> Top 10 fav\'s tweets. (Comming soon)
+                2 --> Most faved tweets.
                 3 --> Average fav per day. (Comming soon)
                -1 --> Back
 

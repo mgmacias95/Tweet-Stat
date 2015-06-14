@@ -109,7 +109,8 @@ if __name__ == '__main__':
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 2:
-                    print("Top 10 fav\'s tweets (Comming soon...)")
+                    print("Most faved tweets by "+user.screen_name)
+                    tw.most_faved_tweets()
                     menu.continue_()
                     menu.print_fav_menu()
                     menu.set_submenu_opt(num_opt-1)
