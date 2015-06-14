@@ -22,7 +22,8 @@ class Twitter:
     # Returns some stats of the most rted users by the specified user
     def most_rtd_users(self):
         #Get user time line
-        my_timeline = self.api.user_timeline(self.user.id, exclude_replies=True, counter=200)
+        my_timeline = self.api.user_timeline(self.user.id, exclude_replies=True, 
+                        count=200)
         #Filtrer retweets made by this user
         my_rts = self.__rt_filtrer(my_timeline)
         my_last_tweet = my_timeline[-1].id
@@ -36,7 +37,8 @@ class Twitter:
 
             my_timeline = []
             my_rts = []
-            my_timeline = self.api.user_timeline(self.user.id, exclude_replies=True, counter=200, max_id=my_last_tweet)
+            my_timeline = self.api.user_timeline(self.user.id, exclude_replies=True, 
+                        count=200, max_id=my_last_tweet)
             my_last_tweet = my_timeline[-1].id
             my_rts = self.__rt_filtrer(my_timeline)
         
@@ -125,7 +127,7 @@ class Twitter:
     # Returns a list with the users the specified user mentions more
     def more_mentioned (self):
         # Get the user time lime
-        my_timeline = self.api.user_timeline(self.user.id, counter=200, include_rts=False)
+        my_timeline = self.api.user_timeline(self.user.id, count=200, include_rts=False)
         my_last_tweet = my_timeline[-1].id
 
         my_mentioned_people = []
@@ -138,7 +140,8 @@ class Twitter:
                 my_mentioned_people.append(sn)
 
             my_timeline = []
-            my_timeline = self.api.user_timeline(self.user.id, include_rts=False, counter=200, max_id=my_last_tweet)
+            my_timeline = self.api.user_timeline(self.user.id, include_rts=False, 
+                        count=200, max_id=my_last_tweet)
             my_last_tweet = my_timeline[-1].id
             aux = []
 
@@ -271,3 +274,25 @@ class Twitter:
             print(self.user.screen_name+" can send direct messages to "+user2)
         else:
             print(self.user.screen_name+" cannot send direct messages to "+user2)
+
+    def __cmp_faved_tweets(self, x, y):
+        if x.favorite_count > y.favorite_count:
+            return 1
+        elif x.favorite_count == y.favorite_count:
+            return 0
+        else:
+            return -1
+
+    # Returns the most faved tweets of the specified user
+    def most_faved_tweets (self):
+        # Get the user time lime
+        my_timeline = self.api.user_timeline(self.user.id, count=200, 
+                    include_rts=False, exclude_replies=True)
+
+        # Sort tweets by its favourite count
+        # sorted(my_timeline, cmp=self.__cmp_faved_tweets)
+        my_timeline.sort(key=lambda k : k.favorite_count, reverse=True)
+
+        # Print their fav count and their text
+        for tweet in my_timeline:
+            print("Number of favs: "+str(tweet.favorite_count) + "\tText: " + tweet.text)
