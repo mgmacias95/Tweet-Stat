@@ -93,9 +93,7 @@ class Menu:
                            Fav\'s zone menu
         ---------------------------------------------------------
                 0 --> More fav users.
-                1 --> User that make favorite you more. (Comming soon)
-                2 --> Most faved tweets.
-                3 --> Average fav per day. (Comming soon)
+                1 --> Most faved tweets.
                -1 --> Back
 
             """+bcolors.ENDC)
