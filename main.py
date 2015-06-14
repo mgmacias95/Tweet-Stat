@@ -14,6 +14,8 @@ if __name__ == '__main__':
 
     menu = Menu()
 
+    menu.blue_world()
+
     usuario = menu.log_menu()
 
     while not usuario:
@@ -167,3 +169,5 @@ if __name__ == '__main__':
 
     if menu.option == -1:
         menu.print_exit_log()
+
+    menu.normal_world()

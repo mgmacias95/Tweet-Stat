@@ -1,4 +1,6 @@
 import os
+import colors
+from colors import bcolors
 
 class Menu:
     """docstring for Menu"""
@@ -9,11 +11,17 @@ class Menu:
     def clean_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
 
+    def blue_world(self):
+        print(bcolors.bblue)
+
+    def normal_world(self):
+        print(bcolors.ENDC)
+
     def welcome_message(self):
 
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
 
 
         ---------------------------------------------------------
@@ -24,12 +32,13 @@ class Menu:
 
            Remember: \"with great power comes great responsibility\"
 
-        """)
+        """+bcolors.ENDC)
+        self.blue_world()
 
     def print_main_menu(self):
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
 
         ---------------------------------------------------------
                            TweetStat Main Menu
@@ -38,12 +47,13 @@ class Menu:
         0 --> User stat\'s                 1 --> RT\'s zone
         2 --> Fav\'s zone                  3 --> Follower\'s zone
                    -1 --> Exit          4 --> Extra
-        """)
+        """+bcolors.ENDC)
+        self.blue_world()
 
     def print_user_menu(self):
 
         self.clean_screen()
-        print("""
+        print(bcolors.BOLD+"""
       ---------------------------------------------------------
                        User stat\'s zone menu
       ---------------------------------------------------------
@@ -55,12 +65,13 @@ class Menu:
 
             More comming soon
 
-            """)
+            """+bcolors.ENDC)
+        self.blue_world()
 
     def print_rt_menu(self):
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
         ---------------------------------------------------------
                            RT\'s zone menu
         ---------------------------------------------------------
@@ -71,12 +82,13 @@ class Menu:
                 3 --> Average rt per day. (Comming soon)
                -1 --> Back
 
-            """)
+            """+bcolors.ENDC)
+        self.blue_world()
 
     def print_fav_menu(self):
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
         ---------------------------------------------------------
                            Fav\'s zone menu
         ---------------------------------------------------------
@@ -86,12 +98,13 @@ class Menu:
                 3 --> Average fav per day. (Comming soon)
                -1 --> Back
 
-            """)
+            """+bcolors.ENDC)
+        self.blue_world()
 
     def log_menu(self):
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
         ---------------------------------------------------------
                               Log Screen
         ---------------------------------------------------------
@@ -100,9 +113,10 @@ class Menu:
 
                      user screen name without @
 
-            """)
+            """+bcolors.ENDC)
+        self.blue_world()
         
-        usuario = input('Tell me an user\'s screen name: ')
+        usuario = input(bcolors.BOLD+'Tell me an user\'s screen name: '+bcolors.ENDC+bcolors.bblue)
 
         if usuario[0] == '@':
             usuario = usuario[1:]
@@ -119,7 +133,7 @@ class Menu:
     def print_follower_menu(self):
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
         ---------------------------------------------------------
                            Follower\'s zone menu
         ---------------------------------------------------------
@@ -127,22 +141,23 @@ class Menu:
                 1 --> New follower\'s. (Comming soon)
                 2 --> Last unfollows.
                -1 --> Back
-            """)
+            """+bcolors.ENDC)
 
     def continue_(self):
 
-        wait = input("""
+        wait = input(bcolors.BOLD+"""
 
 
 
 
 
-Press any key to continue...""")
+Press any key to continue..."""+bcolors.ENDC)
+        self.blue_world()
 
     def print_exit_log(self):
         self.clean_screen()
 
-        print("""           
+        print(bcolors.BOLD+"""           
 
 
         ---------------------------------------------------------
@@ -156,12 +171,13 @@ Press any key to continue...""")
               \"With great power comes great responsibility\"
 
 
-            """)
+            """+bcolors.ENDC)
+        self.blue_world()
 
     def extra(self):
         self.clean_screen()
 
-        print("""
+        print(bcolors.BOLD+"""
         ---------------------------------------------------------
                               TWEETSTAT
         ---------------------------------------------------------
@@ -180,25 +196,26 @@ Press any key to continue...""")
 
                         Press -1 to go back
         
-            """)        
+            """+bcolors.ENDC)
+        self.blue_world()        
 
     def set_main_menu_opt(self):
 
         num_opts = 4
 
-        self.option = int(input("Choose a valid option: "))
+        self.option = int(input(bcolors.BOLD+"Choose a valid option: "+bcolors.ENDC+bcolors.bblue))
 
         if self.option < -1 or self.option > num_opts:
-            print("Oups! Something is wrong with your choice D:")
+            print(bcolors.BOLD+bcolors.FAIL+"Oups! Something is wrong with your choice D:"+bcolors.ENDC+bcolors.bblue)
 
             while self.option < -1 or self.option > num_opts:
-                self.option = int(input("Try to choose a valid option: "))
+                self.option = int(input(bcolors.BOLD+"Try to choose a valid option: "+bcolors.ENDC+bcolors.bblue))
 
     def set_submenu_opt(self, num_opts):
-        self.suboption_menu = int(input("Choose a valid option: "))
+        self.suboption_menu = int(input(bcolors.BOLD+"Choose a valid option: "+bcolors.ENDC+bcolors.bblue))
 
         if self.suboption_menu < -1 or self.suboption_menu > num_opts:
-            print("Oups! Something is wrong with your choice.")
+            print(bcolors.BOLD+bcolors.FAIL+"Oups! Something is wrong with your choice."+bcolors.ENDC+bcolors.bblue)
 
             while self.suboption_menu < -1 or self.suboption_menu > num_opts:
-                self.suboption_menu = int(input("Try to choose a valid option: "))
+                self.suboption_menu = int(input(bcolors.BOLD+"Try to choose a valid option: "+bcolors.ENDC+bcolors.bblue))
