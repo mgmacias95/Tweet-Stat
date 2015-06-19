@@ -15,7 +15,7 @@ class Menu:
         print(bcolors.bblue)
 
     def normal_world(self):
-        print(""+bcolors.ENDC+"\n")
+        print(bcolors.ENDC)
 
     def welcome_message(self):
 
@@ -77,9 +77,8 @@ class Menu:
         ---------------------------------------------------------
 
                 0 --> More rted users.
-                1 --> User that make more rt\'s. (Comming soon)
-                2 --> Top 10 rted\'s tweets. (Comming soon)
-                3 --> Average rt per day. (Comming soon)
+                1 --> User that make more rt\'s.
+                2 --> Most retweeted tweets.
                -1 --> Back
 
             """+bcolors.ENDC)
