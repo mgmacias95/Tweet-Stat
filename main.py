@@ -59,7 +59,7 @@ if __name__ == '__main__':
             menu.set_main_menu_opt()
 
         elif menu.option == 1:
-            num_opt = 4
+            num_opt = 3
             menu.print_rt_menu()
             menu.set_submenu_opt(num_opt-1)
             while menu.suboption_menu != -1:
@@ -71,19 +71,15 @@ if __name__ == '__main__':
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 1:
-                    print("Calling user that make mor rt\'s (Comming soon...)")
+                    print("Users who most retweet "+user.screen_name)
+                    tw.most_rters()
                     menu.continue_()
                     menu.print_rt_menu()
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 2:
-                    print("Top 10 rted\'s tweets (Comming soon...)")
-                    menu.continue_()
-                    menu.print_rt_menu()
-                    menu.set_submenu_opt(num_opt-1)
-
-                elif menu.suboption_menu == 3:
-                    print("Average rt per day (Comming soon...)")
+                    print("Most retweeted tweets by " + user.screen_name)
+                    tw.most_rted_tweets()
                     menu.continue_()
                     menu.print_rt_menu()
                     menu.set_submenu_opt(num_opt-1)
@@ -92,7 +88,7 @@ if __name__ == '__main__':
             menu.set_main_menu_opt()
 
         elif menu.option == 2:
-            num_opt = 4
+            num_opt = 2
             menu.print_fav_menu()
             menu.set_submenu_opt(num_opt-1)
             
@@ -105,20 +101,8 @@ if __name__ == '__main__':
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 1:
-                    print("User that make favorite you more (Comming soon...)")
-                    menu.continue_()
-                    menu.print_fav_menu()
-                    menu.set_submenu_opt(num_opt-1)
-
-                elif menu.suboption_menu == 2:
                     print("Most faved tweets by "+user.screen_name)
                     tw.most_faved_tweets()
-                    menu.continue_()
-                    menu.print_fav_menu()
-                    menu.set_submenu_opt(num_opt-1)
-
-                elif menu.suboption_menu == 3:
-                    print("Average fav per day (Comming soon...)")
                     menu.continue_()
                     menu.print_fav_menu()
                     menu.set_submenu_opt(num_opt-1)

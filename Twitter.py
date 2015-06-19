@@ -296,3 +296,37 @@ class Twitter:
         # Print their fav count and their text
         for tweet in my_timeline:
             print("Number of favs: "+str(tweet.favorite_count) + "\tText: " + tweet.text)
+
+    # Returns a list of the users who most rt to the specified user
+    def most_rters(self):
+        # Get the user time line
+        my_timeline = self.api.user_timeline(self.user.id, count=200,
+                        include_rts=False)
+
+        users = {}
+        # Get the RTS of each tweet
+        for tweet in my_timeline:
+            rts = self.api.retweets(tweet.id)
+            for rt in rts:
+                if not rt.user.screen_name in users.keys():
+                    users[rt.user.screen_name] = 1
+                else:
+                    users[rt.user.screen_name] += 1
+
+        for k, v in sorted(users.items()):
+            print("User: " + k + "\tNumber of RTs: " + str(v))
+
+
+    # Returns a list of the most retweeted tweets of the specified user
+    def most_rted_tweets(self):
+        # Get the user timeline
+        my_timeline = self.api.user_timeline(self.user.id, count=200,
+                    include_rts=False)
+
+        # Sort tweets by its rt count
+        my_timeline.sort(key=lambda k : k.retweet_count, reverse=True)
+
+        # Print their rt count and their text
+        for tweet in my_timeline:
+            if tweet.retweet_count >= 1:
+                print("Number of rts: "+str(tweet.retweet_count) + "\tText: " + tweet.text)
