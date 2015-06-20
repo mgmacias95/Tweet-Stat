@@ -10,8 +10,10 @@ class Twitter:
         self.user = user
         self.api = api
 
-    # Returns a list which contains only tweets started by RT
+# ------------------------------------------------------------------------------------------
+
     def __rt_filtrer (self, list_timeline):
+        """Returns a list which contains only tweets started by RT"""
         rts = []
         for tweet in list_timeline:
             if tweet.text[:4] == "RT @":
@@ -19,8 +21,10 @@ class Twitter:
 
         return rts
 
-    # Returns some stats of the most rted users by the specified user
+# ------------------------------------------------------------------------------------------
+
     def most_rtd_users(self):
+        """Returns some stats of the most rted users by the specified user"""
         #Get user time line
         my_timeline = self.api.user_timeline(self.user.id, exclude_replies=True, 
                         count=200)
@@ -61,9 +65,10 @@ class Twitter:
             print(result[0]+" has the "+str((result[1]/tam_list)*100)
                 +"% of "+self.user.screen_name+"\'s latest RTs")
 
+# ------------------------------------------------------------------------------------------
 
-    # Returns some stats of the most faved users by the specified user
     def most_faved_users(self):
+        """Returns some stats of the most faved users by the specified user"""
         # Get the user fav list
         my_favs = self.api.favorites(self.user.screen_name, count=20)
 
@@ -88,8 +93,10 @@ class Twitter:
             print(result[0]+" has the "+str((result[1]/20)*100)
                 +"% of "+self.user.screen_name+"\'s latest FAVs")
 
-    # Returns a list of the users who more mention to the specified user
+# ------------------------------------------------------------------------------------------
+
     def mentioners(self):
+        """Returns a list of the users who more mention to the specified user"""
         # Get the lastest mentions to the user
         mentions = self.api.search(q=self.user.screen_name, count=150)
 
@@ -101,7 +108,8 @@ class Twitter:
                 if people['screen_name'] == self.user.screen_name:
                     people_who_mentioned.append(tw.user.screen_name) 
 
-        # Save a 2d array the screen name and the times the specified user has been mentioned by the user
+        # Save a 2d array the screen name and the times the specified user has 
+        # been mentioned by the user
         mentioned_stats = []
         for mention in people_who_mentioned:
             each_m = [mention, people_who_mentioned.count(mention)]
@@ -113,7 +121,8 @@ class Twitter:
 
         # And print the results
         for result in mentioned_stats:
-            print(result[0]+" mentions "+self.user.screen_name+" the "+str((result[1]/75)*100)+"% of the times")
+            print(result[0]+" mentions "+self.user.screen_name+" the "+
+                str((result[1]/75)*100)+"% of the times")
 
     def __mentions_filtrer(self, list_timeline):
         my_mentioned_people = []
@@ -124,8 +133,10 @@ class Twitter:
 
         return my_mentioned_people
 
-    # Returns a list with the users the specified user mentions more
+# ------------------------------------------------------------------------------------------
+
     def more_mentioned (self):
+        """Returns a list with the users the specified user mentions more"""
         # Get the user time lime
         my_timeline = self.api.user_timeline(self.user.id, count=200, include_rts=False)
         my_last_tweet = my_timeline[-1].id
@@ -162,9 +173,10 @@ class Twitter:
             print(self.user.screen_name+" mentions "+result[0]+" the "
                 +str((result[1]/tam_list)*100)+"% of the times")
 
+# ------------------------------------------------------------------------------------------
 
-    # Returns a list of the users who the user follows and dont have a follow back
     def not_follow_back(self, fol_sn):
+        """Returns a list of the users who the user follows and dont have a follow back"""
         # Get users friends list (last 5000 friends)
         my_friends = self.api.friends_ids(self.user.id)
 
@@ -174,8 +186,10 @@ class Twitter:
             if fol_sn.count(friend) == 0:
                 print(friend+" does not follow "+self.user.screen_name+" back")
 
-    # Returns a list with screen_names from a id list given
+# ------------------------------------------------------------------------------------------
+
     def get_screen_names(self, id_list):
+        """ Returns a list with screen_names from a id list given """
         l = []
 
         for x in range(0,len(id_list),100):
@@ -185,14 +199,16 @@ class Twitter:
 
         return l
 
-    # Returns a list of the people who unfollowed the specified user
-    # it works this way: 
-    #   if there's a file called self.user.screen_name it compares
-    #   the content of this file with the actual list of followers
-    #   if there's no file, it downloads the actual list of followers, writes it
-    #   on a file called self.user.screen_name and compares the list with
-    #   the list of friends.
+# ------------------------------------------------------------------------------------------
+
     def who_unfollowed(self):
+        """ Returns a list of the people who unfollowed the specified user it 
+            works this way: 
+                1. if there's a file called self.user.screen_name it compares
+                   the content of this file with the actual list of followers
+                2. if there's no file, it downloads the actual list of followers, 
+                   writes it on a file called self.user.screen_name and compares 
+                   the list with the list of friends. """
         #download actual followers list:
         my_followers = self.api.followers_ids(self.user.id)
 
@@ -224,10 +240,13 @@ class Twitter:
             print("Checking friends list...")
             self.not_follow_back(my_fol_sn)
 
-    # Returns the relationship between the specified user and another one
+# ------------------------------------------------------------------------------------------
+
     def relationship(self):
+        """ Returns the relationship between the specified user and another one"""
         user2 = input("Tell me an screen name: ")
-        rel = self.api.show_friendship(source_screen_name=self.user.screen_name, target_screen_name=user2)
+        rel = self.api.show_friendship(source_screen_name=self.user.screen_name, 
+                                        target_screen_name=user2)
         
         print(self.user.screen_name+"\'s relationship with "+user2+":")
         if rel[0].notifications_enabled:
@@ -283,8 +302,10 @@ class Twitter:
         else:
             return -1
 
-    # Returns the most faved tweets of the specified user
+# ------------------------------------------------------------------------------------------
+
     def most_faved_tweets (self):
+        """ Returns the most faved tweets of the specified user"""
         # Get the user time lime
         my_timeline = self.api.user_timeline(self.user.id, count=200, 
                     include_rts=False, exclude_replies=True)
@@ -297,8 +318,10 @@ class Twitter:
         for tweet in my_timeline:
             print("Number of favs: "+str(tweet.favorite_count) + "\tText: " + tweet.text)
 
-    # Returns a list of the users who most rt to the specified user
+# ------------------------------------------------------------------------------------------
+
     def most_rters(self):
+        """ Returns a list of the users who most rt the specified user"""
         # Get the user time line
         my_timeline = self.api.user_timeline(self.user.id, count=200,
                         include_rts=False)
@@ -316,9 +339,10 @@ class Twitter:
         for k, v in sorted(users.items()):
             print("User: " + k + "\tNumber of RTs: " + str(v))
 
+# ------------------------------------------------------------------------------------------
 
-    # Returns a list of the most retweeted tweets of the specified user
     def most_rted_tweets(self):
+        """Returns a list of the most retweeted tweets of the specified user"""
         # Get the user timeline
         my_timeline = self.api.user_timeline(self.user.id, count=200,
                     include_rts=False)
@@ -330,3 +354,5 @@ class Twitter:
         for tweet in my_timeline:
             if tweet.retweet_count >= 1:
                 print("Number of rts: "+str(tweet.retweet_count) + "\tText: " + tweet.text)
+
+# ------------------------------------------------------------------------------------------
