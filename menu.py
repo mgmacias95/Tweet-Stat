@@ -183,7 +183,7 @@ Press any key to continue..."""+bcolors.ENDC)
 
            The authors of this dangerous work are:
 
-             Marta Gómez     --> https://github.com/mgmacias95
+             Marta Gomez     --> https://github.com/mgmacias95
              Braulio Vargas  --> https://github.com/BraulioV
 
 
