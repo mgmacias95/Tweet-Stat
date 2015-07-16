@@ -118,7 +118,7 @@ if __name__ == '__main__':
             while menu.suboption_menu != -1:
                 if menu.suboption_menu == 0:
                     print("Users who does not follow back "+user.screen_name)
-                    my_followers = self.api.followers_ids(user.id)
+                    my_followers = api.followers_ids(user.id)
                     my_fol_sn = tw.get_screen_names(my_followers)
                     tw.not_follow_back(my_fol_sn)
                     menu.continue_()
@@ -126,7 +126,8 @@ if __name__ == '__main__':
                     menu.set_submenu_opt(num_opt-1)
 
                 elif menu.suboption_menu == 1:
-                    print("New follower\'s (Comming soon...)")
+                    print(user.screen_name+"\'s new followers")
+                    tw.new_followers()
                     menu.continue_()
                     menu.print_follower_menu()
                     menu.set_submenu_opt(num_opt-1)

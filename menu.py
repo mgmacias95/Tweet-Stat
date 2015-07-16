@@ -135,7 +135,7 @@ class Menu:
                            Follower\'s zone menu
         ---------------------------------------------------------
                 0 --> Not follow back.
-                1 --> New follower\'s. (Comming soon)
+                1 --> New followers.
                 2 --> Last unfollows.
                -1 --> Back
             """+bcolors.ENDC)

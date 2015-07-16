@@ -11,6 +11,8 @@ class Twitter:
         self.api = api
 
 # ------------------------------------------------------------------------------------------
+#                                   RT ZONE
+# ------------------------------------------------------------------------------------------
 
     def __rt_filtrer (self, list_timeline):
         """Returns a list which contains only tweets started by RT"""
@@ -67,6 +69,45 @@ class Twitter:
 
 # ------------------------------------------------------------------------------------------
 
+    def most_rters(self):
+        """ Returns a list of the users who most rt the specified user"""
+        # Get the user time line
+        my_timeline = self.api.user_timeline(self.user.id, count=200,
+                        include_rts=False)
+
+        users = {}
+        # Get the RTS of each tweet
+        for tweet in my_timeline:
+            rts = self.api.retweets(tweet.id)
+            for rt in rts:
+                if not rt.user.screen_name in users.keys():
+                    users[rt.user.screen_name] = 1
+                else:
+                    users[rt.user.screen_name] += 1
+
+        for k, v in sorted(users.items()):
+            print("User: " + k + "\tNumber of RTs: " + str(v))
+
+# ------------------------------------------------------------------------------------------
+
+    def most_rted_tweets(self):
+        """Returns a list of the most retweeted tweets of the specified user"""
+        # Get the user timeline
+        my_timeline = self.api.user_timeline(self.user.id, count=200,
+                    include_rts=False)
+
+        # Sort tweets by its rt count
+        my_timeline.sort(key=lambda k : k.retweet_count, reverse=True)
+
+        # Print their rt count and their text
+        for tweet in my_timeline:
+            if tweet.retweet_count >= 1:
+                print("Number of rts: "+str(tweet.retweet_count) + "\tText: " + tweet.text)
+
+# ------------------------------------------------------------------------------------------
+#                                   FAV ZONE
+# ------------------------------------------------------------------------------------------
+
     def most_faved_users(self):
         """Returns some stats of the most faved users by the specified user"""
         # Get the user fav list
@@ -93,6 +134,34 @@ class Twitter:
             print(result[0]+" has the "+str((result[1]/20)*100)
                 +"% of "+self.user.screen_name+"\'s latest FAVs")
 
+# ------------------------------------------------------------------------------------------
+
+    def __cmp_faved_tweets(self, x, y):
+        if x.favorite_count > y.favorite_count:
+            return 1
+        elif x.favorite_count == y.favorite_count:
+            return 0
+        else:
+            return -1
+
+# ------------------------------------------------------------------------------------------
+
+    def most_faved_tweets (self):
+        """ Returns the most faved tweets of the specified user"""
+        # Get the user time lime
+        my_timeline = self.api.user_timeline(self.user.id, count=200, 
+                    include_rts=False, exclude_replies=True)
+
+        # Sort tweets by its favourite count
+        # sorted(my_timeline, cmp=self.__cmp_faved_tweets)
+        my_timeline.sort(key=lambda k : k.favorite_count, reverse=True)
+
+        # Print their fav count and their text
+        for tweet in my_timeline:
+            print("Number of favs: "+str(tweet.favorite_count) + "\tText: " + tweet.text)
+
+# ------------------------------------------------------------------------------------------
+#                                   USER ZONE
 # ------------------------------------------------------------------------------------------
 
     def mentioners(self):
@@ -123,6 +192,8 @@ class Twitter:
         for result in mentioned_stats:
             print(result[0]+" mentions "+self.user.screen_name+" the "+
                 str((result[1]/75)*100)+"% of the times")
+
+# ------------------------------------------------------------------------------------------
 
     def __mentions_filtrer(self, list_timeline):
         my_mentioned_people = []
@@ -172,73 +243,6 @@ class Twitter:
         for result in mentions_stats:
             print(self.user.screen_name+" mentions "+result[0]+" the "
                 +str((result[1]/tam_list)*100)+"% of the times")
-
-# ------------------------------------------------------------------------------------------
-
-    def not_follow_back(self, fol_sn):
-        """Returns a list of the users who the user follows and dont have a follow back"""
-        # Get users friends list (last 5000 friends)
-        my_friends = self.api.friends_ids(self.user.id)
-
-        fr_sn = self.get_screen_names(my_friends) # a list to save friends screen name
-
-        for friend in fr_sn:
-            if fol_sn.count(friend) == 0:
-                print(friend+" does not follow "+self.user.screen_name+" back")
-
-# ------------------------------------------------------------------------------------------
-
-    def get_screen_names(self, id_list):
-        """ Returns a list with screen_names from a id list given """
-        l = []
-
-        for x in range(0,len(id_list),100):
-            li = self.api.lookup_users(user_ids=id_list[x:(x+100)])
-            for usr in li:
-                l.append(usr.screen_name)
-
-        return l
-
-# ------------------------------------------------------------------------------------------
-
-    def who_unfollowed(self):
-        """ Returns a list of the people who unfollowed the specified user it 
-            works this way: 
-                1. if there's a file called self.user.screen_name it compares
-                   the content of this file with the actual list of followers
-                2. if there's no file, it downloads the actual list of followers, 
-                   writes it on a file called self.user.screen_name and compares 
-                   the list with the list of friends. """
-        #download actual followers list:
-        my_followers = self.api.followers_ids(self.user.id)
-
-        # try to open the file:
-        try:
-            f = open(self.user.screen_name)
-            my_actuals = self.get_screen_names(my_followers)
-            anyone_unfollowed = False
-            for line in f:
-                if my_actuals.count(line[:len(line)-1]) == 0:
-                    anyone_unfollowed = True
-                    print(line[:len(line)-1]+" recently unfollowed "+self.user.screen_name)
-
-            if not anyone_unfollowed: 
-                print("No one unfollowed "+self.user.screen_name)
-
-            f = open(self.user.screen_name, "w")
-            f.writelines("%s\n" % l for l in my_actuals)
-            print(self.user.screen_name+"\'s followers file updated")
-
-        except IOError as e:
-            print("followers file does not exists for "+self.user.screen_name)
-            # save the actual followers list
-            print("Creating file...")
-            my_fol_sn = self.get_screen_names(my_followers)
-            f = open(self.user.screen_name, "w")
-            f.writelines("%s\n" % l for l in my_fol_sn)
-            # compare with the friends list
-            print("Checking friends list...")
-            self.not_follow_back(my_fol_sn)
 
 # ------------------------------------------------------------------------------------------
 
@@ -294,65 +298,121 @@ class Twitter:
         else:
             print(self.user.screen_name+" cannot send direct messages to "+user2)
 
-    def __cmp_faved_tweets(self, x, y):
-        if x.favorite_count > y.favorite_count:
-            return 1
-        elif x.favorite_count == y.favorite_count:
-            return 0
-        else:
-            return -1
+# ------------------------------------------------------------------------------------------
+#                                   FOLLOWERS ZONE
+# ------------------------------------------------------------------------------------------
+
+    def not_follow_back(self, fol_sn):
+        """Returns a list of the users who the user follows and dont have a follow back"""
+        # Get users friends list (last 5000 friends)
+        my_friends = self.api.friends_ids(self.user.id)
+
+        fr_sn = self.get_screen_names(my_friends) # a list to save friends screen name
+
+        for friend in fr_sn:
+            if fol_sn.count(friend) == 0:
+                print(friend+" does not follow "+self.user.screen_name+" back")
 
 # ------------------------------------------------------------------------------------------
 
-    def most_faved_tweets (self):
-        """ Returns the most faved tweets of the specified user"""
-        # Get the user time lime
-        my_timeline = self.api.user_timeline(self.user.id, count=200, 
-                    include_rts=False, exclude_replies=True)
+    def get_screen_names(self, id_list):
+        """ Returns a list with screen_names from a id list given """
+        l = []
 
-        # Sort tweets by its favourite count
-        # sorted(my_timeline, cmp=self.__cmp_faved_tweets)
-        my_timeline.sort(key=lambda k : k.favorite_count, reverse=True)
+        for x in range(0,len(id_list),100):
+            li = self.api.lookup_users(user_ids=id_list[x:(x+100)])
+            for usr in li:
+                l.append(usr.screen_name)
 
-        # Print their fav count and their text
-        for tweet in my_timeline:
-            print("Number of favs: "+str(tweet.favorite_count) + "\tText: " + tweet.text)
+        return l
 
 # ------------------------------------------------------------------------------------------
 
-    def most_rters(self):
-        """ Returns a list of the users who most rt the specified user"""
-        # Get the user time line
-        my_timeline = self.api.user_timeline(self.user.id, count=200,
-                        include_rts=False)
+    def get_ids(self, id_list):
+        """ Returns a list with ids from a id list given """
+        l = []
 
-        users = {}
-        # Get the RTS of each tweet
-        for tweet in my_timeline:
-            rts = self.api.retweets(tweet.id)
-            for rt in rts:
-                if not rt.user.screen_name in users.keys():
-                    users[rt.user.screen_name] = 1
-                else:
-                    users[rt.user.screen_name] += 1
+        for x in range(0,len(id_list),100):
+            li = self.api.lookup_users(user_ids=id_list[x:(x+100)])
+            for usr in li:
+                l.append(usr.id)
 
-        for k, v in sorted(users.items()):
-            print("User: " + k + "\tNumber of RTs: " + str(v))
+        return l
 
 # ------------------------------------------------------------------------------------------
 
-    def most_rted_tweets(self):
-        """Returns a list of the most retweeted tweets of the specified user"""
-        # Get the user timeline
-        my_timeline = self.api.user_timeline(self.user.id, count=200,
-                    include_rts=False)
+    def who_unfollowed(self):
+        """ Returns a list of the people who unfollowed the specified user it 
+            works this way: 
+                1. if there's a file called self.user.screen_name it compares
+                   the content of this file with the actual list of followers
+                2. if there's no file, it downloads the actual list of followers, 
+                   writes it on a file called self.user.screen_name and compares 
+                   the list with the list of friends. """
+        # download actual followers list:
+        my_actuals = self.api.followers_ids(self.user.id)
 
-        # Sort tweets by its rt count
-        my_timeline.sort(key=lambda k : k.retweet_count, reverse=True)
+        # try to open the file:
+        try:
+            f = open(str(self.user.id))
+            anyone_unfollowed = False
+            for line in f:
+                if not int(line[:len(line)-1]) in my_actuals:
+                    anyone_unfollowed = True
+                    u = self.api.get_user(line[:len(line)-1])
+                    print(u.screen_name+" recently unfollowed "+self.user.screen_name)
 
-        # Print their rt count and their text
-        for tweet in my_timeline:
-            if tweet.retweet_count >= 1:
-                print("Number of rts: "+str(tweet.retweet_count) + "\tText: " + tweet.text)
+            if not anyone_unfollowed: 
+                print("No one unfollowed "+self.user.screen_name)
+
+            f = open(str(self.user.id), "w")
+            f.writelines("%s\n" % l for l in my_actuals)
+            print(self.user.screen_name+"\'s followers file updated")
+
+        except IOError as e:
+            print("followers file does not exists for "+self.user.screen_name)
+            # save the actual followers list
+            print("Creating file...")
+            f = open(str(self.user.id), "w")
+            f.writelines("%s\n" % l for l in my_actuals)
+            # compare with the friends list
+            print("Checking friends list...")
+            my_fol_sn = self.get_screen_names(my_actuals)
+            self.not_follow_back(my_fol_sn)
+
+# ------------------------------------------------------------------------------------------
+    def new_followers(self):
+        """Returns a list of the new followers of the specified user.
+
+        Only works if there is a followers file for this user"""
+        # download the actual followers list
+        my_followers = self.api.followers_ids(self.user.id)
+
+        # try to open the file:
+        try:
+            f = open(str(self.user.id))
+            # compare if the last follower is the same person
+            last_follower = f.readline()
+
+            if str(my_followers[0]) == last_follower[:len(last_follower)-1]:
+                print(self.user.screen_name+" has no new followers")
+
+            else:
+                i = 0
+                while (my_followers[i] != last_follower[:len(last_follower)-1]):
+                    u = self.api.get_user(my_followers[i])
+                    print(u.screen_name+" recently followed "+self.user.screen_name)
+                    i += 1
+
+                f = open(str(self.user.id), "w")
+                f.writelines("%s\n" % l for l in my_followers)
+                print(self.user.screen_name+"\'s followers file updated")
+
+        except IOError as e:
+            print("followers file does not exists for "+self.user.screen_name)
+            # save the actual followers list
+            print("Creating file...")
+            f = open(str(self.user.id), "w")
+            f.writelines("%s\n" % l for l in my_followers)
 
 # ------------------------------------------------------------------------------------------
