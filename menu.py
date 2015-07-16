@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import colors
 from colors import bcolors
